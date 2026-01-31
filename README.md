@@ -9,3 +9,4 @@
   - if the token isn't valid (expired , doesn't belong to that user...), we will send -> invalid JWT token.
   - otherwise what will happen is that we update the SecurityContextHolder and set the connected user , wich tells our filter chain that our user is authenticated.
   - once the SecurityContextHolder is updated i will automaticaly send the request to the dispatch servlet , and this one will dispatch th erequest to the correct controller.
+  - and then the controller does the work and sends a JSON response with a 200 ok message code.
