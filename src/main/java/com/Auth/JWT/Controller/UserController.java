@@ -3,14 +3,18 @@ package com.Auth.JWT.Controller;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.Auth.JWT.DTO.AuthRequest;
+import com.Auth.JWT.Entity.UserInfo;
+import com.Auth.JWT.Service.JwtService;
+import com.Auth.JWT.Service.UserInfoService;
 
 @RestController
 @RequestMapping("/auth")
