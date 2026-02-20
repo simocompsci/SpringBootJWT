@@ -3,7 +3,6 @@ package com.Auth.JWT.Controller;
 import com.Auth.JWT.DTO.AuthRequest;
 import com.Auth.JWT.DTO.AuthResponse;
 import com.Auth.JWT.DTO.RegisterRequest;
-import com.Auth.JWT.DTO.UserResponse;
 import com.Auth.JWT.Entity.UserInfo;
 import com.Auth.JWT.Service.JwtService;
 import com.Auth.JWT.Service.UserInfoService;
