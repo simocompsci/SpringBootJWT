@@ -21,11 +21,11 @@ import com.Auth.JWT.Service.UserInfoService;
 @RequiredArgsConstructor
 public class UserController {
 
-    private UserInfoService service;
+    private final UserInfoService service;
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @GetMapping("/welcome")
     public String welcome() {

@@ -27,7 +27,7 @@ public class UserInfoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Fetch user from the database by email (username)
-        Optional<UserInfo> userInfo = repository.findByEmail(username);
+        Optional<UserInfo> userInfo = repository.findByName(username);
 
         if (userInfo.isEmpty()) {
             throw new UsernameNotFoundException("User not found with email: " + username);
