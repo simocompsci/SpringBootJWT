@@ -1,12 +1,49 @@
-# Here i will explain the process of the jwt auth
+# JWT Authentication System
 
-1 - first a client sends an http request.
-2 - the first thing that gets executed in a spring application is the filter (JwtAuthFilter).
-3 - in the jwt filter we will check if the request have the token , if not (send to client -> missing JWT token).
-  - if the token is prsent the validation will start , the filter will first make a call using the UserDetails service to try to fetch the user informations from the database based on the user email , username extarcted from the JWT.
-  - once the user is fetched the response is either the user exists or not , and if the user doesn't exist we will send -> user does't exist to the client witha 4003 error code.
-  - but if everything is fine and we get our user from the database we will then start our validation process to check if the user authentic through the JwtService.
-  - if the token isn't valid (expired , doesn't belong to that user...), we will send -> invalid JWT token.
-  - otherwise what will happen is that we update the SecurityContextHolder and set the connected user , wich tells our filter chain that our user is authenticated.
-  - once the SecurityContextHolder is updated i will automaticaly send the request to the dispatch servlet , and this one will dispatch th erequest to the correct controller.
-  - and then the controller does the work and sends a JSON response with a 200 ok message code.
+A clean, production-ready JWT authentication system built with Spring Boot 3.5.10.
+
+## Quick Start
+
+1. **Configure Database**: Update `application.properties` with your PostgreSQL credentials
+2. **Run Application**: `mvn spring-boot:run`
+3. **Register User**: POST to `/auth/register`
+4. **Login**: POST to `/auth/login` to get JWT token
+5. **Access Protected Endpoints**: Include token in `Authorization: Bearer <token>` header
+
+## Authentication Flow
+
+1. **Client Request**: Client sends HTTP request with credentials (login) or user data (register)
+2. **Authentication**: Spring Security validates credentials using `AuthenticationManager`
+3. **Token Generation**: `JwtService` generates JWT token with user details
+4. **Token Response**: Server returns JWT token to client
+5. **Protected Requests**: Client includes token in `Authorization: Bearer <token>` header
+6. **Filter Processing**: `JwtAuthFilter` intercepts request:
+   - Extracts token from Authorization header
+   - Validates token using `JwtService`
+   - Loads user details using `UserDetailsService`
+   - Sets authentication in `SecurityContextHolder`
+7. **Authorization**: Spring Security checks user roles and permissions
+8. **Controller Execution**: Request reaches controller if authenticated and authorized
+9. **Response**: Controller processes request and returns JSON response
+
+## Key Components
+
+- **JwtAuthFilter**: Validates JWT tokens on each request
+- **JwtService**: Handles token generation, validation, and extraction
+- **UserInfoService**: Implements `UserDetailsService` for user loading
+- **SecurityConfig**: Configures Spring Security with JWT filter
+- **GlobalExceptionHandler**: Provides consistent error responses
+
+## Documentation
+
+See [API_DOCUMENTATION.md](./API_DOCUMENTATION.md) for complete API documentation.
+
+## Security Features
+
+- ✅ BCrypt password encoding
+- ✅ JWT token-based authentication
+- ✅ Role-based access control (RBAC)
+- ✅ Stateless session management
+- ✅ Token expiration handling
+- ✅ Input validation
+- ✅ Global exception handling

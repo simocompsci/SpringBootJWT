@@ -27,24 +27,15 @@ public class UserInfoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Fetch user from the database by email (username)
-        Optional<UserInfo> userInfo = repository.findByName(username);
+        Optional<UserInfo> userInfo = repository.findByEmail(username);
 
         if (userInfo.isEmpty()) {
             throw new UsernameNotFoundException("User not found with email: " + username);
         }
 
-        // Convert UserInfo to UserDetails (UserInfoDetails)
-        // Get UserInfo from Optional
+        // Convert UserInfo to UserDetails
         UserInfo userInfoEntity = userInfo.get();
-
-        // Convert UserInfo -> UserInfoDetails
-        UserInfoDetails userDetails = new UserInfoDetails(userInfoEntity);
-
-        // Return Spring Security User
-        return new User(
-                userDetails.getUsername(),
-                userDetails.getPassword(),
-                userDetails.getAuthorities());
+        return new UserInfoDetails(userInfoEntity);
     }
 
     // Add any additional methods for registering or managing users
